@@ -26,7 +26,7 @@ void main(){
     printf("\nError binding socket\n");
     exit(-1);
   }
-  printf("Bind to port number\n");
+  printf("Bind to port number %d\n",ntohs(serverAddr.sin_port));
 
   if(listen(serverSocket,6) == -1){
     printf("\nError on activating socket\n");
