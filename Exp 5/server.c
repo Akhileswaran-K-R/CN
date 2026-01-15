@@ -7,7 +7,6 @@
 #include<arpa/inet.h>
 #include<unistd.h>
 #include<time.h>
-#include<signal.h>
 
 void main(){
   struct sockaddr_in serverAddr;
@@ -41,7 +40,7 @@ void main(){
       time_t t = time(NULL);
       char *timeStr = ctime(&t);
 
-      sendto(sockfd,timeStr,strlen(timeStr)+1,0,(struct sockaddr*)&serverAddr,addrSize);
+      sendto(sockfd,timeStr,strlen(timeStr)+1,0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
       exit(0);
     }
   }

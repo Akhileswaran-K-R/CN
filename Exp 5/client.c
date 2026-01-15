@@ -22,7 +22,7 @@ void main(){
   serverAddr.sin_port = htons(6666);
   serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-  strcpy(buffer,"TIME\n");
+  strcpy(buffer,"TIME");
   sendto(sockfd,buffer,1024,0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
 
   int addrSize = sizeof(serverAddr);
