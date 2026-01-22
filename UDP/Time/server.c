@@ -9,7 +9,7 @@
 #include<time.h>
 
 void main(){
-  struct sockaddr_in serverAddr;
+  struct sockaddr_in serverAddr,clientAddr;
   char buffer[1024];
 
   int sockfd = socket(AF_INET,SOCK_DGRAM,0);
@@ -27,11 +27,11 @@ void main(){
     printf("\nError binding socket\n");
     exit(-1);
   }
-  printf("Bind to port number %d\n",ntohs(serverAddr.sin_port));
+  printf("Bind to port number %d\n\n",ntohs(serverAddr.sin_port));
 
-  int addrSize = sizeof(serverAddr);
+  int addrSize = sizeof(clientAddr);
   while(1){
-    recvfrom(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&serverAddr,&addrSize);
+    recvfrom(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&clientAddr,&addrSize);
 
     pid_t pid = fork();
     if(pid < 0){
@@ -40,8 +40,10 @@ void main(){
       time_t t = time(NULL);
       char *timeStr = ctime(&t);
 
-      sendto(sockfd,timeStr,strlen(timeStr)+1,0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
+      sendto(sockfd,timeStr,strlen(timeStr)+1,0,(struct sockaddr*)&clientAddr,sizeof(clientAddr));
       exit(0);
+    }else{
+      printf("Time retrieved from child\n");
     }
   }
 

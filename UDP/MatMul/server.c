@@ -24,11 +24,6 @@ void originalMatrix(int m,int n,int *idx,int arr[][n],int buffer[]){
 }
 
 void multiply(int m,int n,int p,int q,int A[][n],int B[][q],int C[][q]){
-  if(n != p){
-    printf("\nMatrix multiplication cannot be performed\n");
-    exit(-1);
-  }
-
   for(int i=0;i<m;i++){
     for(int j=0;j<q;j++){
       C[i][j] = 0;
@@ -49,7 +44,7 @@ void displayMatrix(int m,int n,int arr[][n]){
 }
 
 void main(){
-  struct sockaddr_in serverAddr;
+  struct sockaddr_in serverAddr,clientAddr;
   int buffer[2048];
   
   int sockfd = socket(AF_INET,SOCK_DGRAM,0);
@@ -69,8 +64,8 @@ void main(){
   }
   printf("Bind to port number %d\n",ntohs(serverAddr.sin_port));
   
-  int addr_size = sizeof(serverAddr);
-  recvfrom(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&serverAddr,&addr_size);
+  int addr_size = sizeof(clientAddr);
+  recvfrom(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&clientAddr,&addr_size);
   
   int m = ntohl(buffer[0]);
   int n = ntohl(buffer[1]);
@@ -93,7 +88,7 @@ void main(){
 
   idx = 2;
   copyMatrix(m,q,&idx,C,package);
-  sendto(sockfd,package,sizeof(package),0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
+  sendto(sockfd,package,sizeof(package),0,(struct sockaddr*)&clientAddr,sizeof(clientAddr));
   
   close(sockfd);
 }

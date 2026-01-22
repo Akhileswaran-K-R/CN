@@ -68,6 +68,11 @@ void main(){
   int B[p][q];
   printf("Enter the elements of second matrix\n");
   readMatrix(p,q,B);
+
+  if(n != p){
+    printf("\nMatrix multiplication cannot be performed\n");
+    exit(-1);
+  }
   
   int package[4 + m*n + p*q];
   package[0] = htonl(m);

@@ -43,7 +43,7 @@ void main(){
 
   recv(newSocket,buffer,1024,0);
   printf("Data recieved: %s\n",buffer);
-  strcpy(buffer,"Hello from server");
+  strcpy(buffer,"Hello from server 123");
   send(newSocket,buffer,strlen(buffer)+1,0);
   
   close(newSocket);

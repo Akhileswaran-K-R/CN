@@ -23,10 +23,10 @@ void main(){
   serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
   strcpy(buffer,"Hello UDP server\n");
-  sendto(sockfd,buffer,1024,0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
+  sendto(sockfd,buffer,strlen(buffer)+1,0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
 
   int addrSize = sizeof(serverAddr);
-  recvfrom(sockfd,buffer,1024,0,(struct sockaddr*)&serverAddr,&addrSize);
+  recvfrom(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&serverAddr,&addrSize);
   printf("%s\n",buffer);
   
   close(sockfd);

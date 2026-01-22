@@ -8,7 +8,7 @@
 #include<unistd.h>
 
 void main(){
-  struct sockaddr_in serverAddr;
+  struct sockaddr_in serverAddr,clientAddr;
   char buffer[1024];
 
   int sockfd = socket(AF_INET,SOCK_DGRAM,0);
@@ -28,11 +28,11 @@ void main(){
   }
   printf("Bind to port number %d\n",ntohs(serverAddr.sin_port));
 
-  int addrSize = sizeof(serverAddr);
-  recvfrom(sockfd,buffer,1024,0,(struct sockaddr*)&serverAddr,&addrSize);
+  int addrSize = sizeof(clientAddr);
+  recvfrom(sockfd,buffer,sizeof(buffer),0,(struct sockaddr*)&clientAddr,&addrSize);
   printf("%s\n",buffer);
   strcpy(buffer,"Hello UDP client\n");
-  sendto(sockfd,buffer,1024,0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
+  sendto(sockfd,buffer,strlen(buffer)+1,0,(struct sockaddr*)&clientAddr,sizeof(clientAddr));
 
   close(sockfd);
 }
