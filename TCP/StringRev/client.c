@@ -31,7 +31,7 @@ void main(){
   printf("\nEnter a string: ");
   scanf("%s",buffer);
   send(clientSocket,buffer,strlen(buffer)+1,0);
-  recv(clientSocket,buffer,1024,0);
+  recv(clientSocket,buffer,sizeof(buffer),0);
   printf("Reversed string: %s\n",buffer);
   
   close(clientSocket);

@@ -30,7 +30,7 @@ void main(){
 
   strcpy(buffer,"Hello from client");
   send(clientSocket,buffer,strlen(buffer)+1,0);
-  recv(clientSocket,buffer,1024,0);
+  recv(clientSocket,buffer,sizeof(buffer),0);
   printf("Data recieved: %s\n",buffer);
   
   close(clientSocket);

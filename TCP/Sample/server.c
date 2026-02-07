@@ -41,9 +41,9 @@ void main(){
     exit(-1);
   }
 
-  recv(newSocket,buffer,1024,0);
+  recv(newSocket,buffer,sizeof(buffer),0);
   printf("Data recieved: %s\n",buffer);
-  strcpy(buffer,"Hello from server 123");
+  strcpy(buffer,"Hello from server");
   send(newSocket,buffer,strlen(buffer)+1,0);
   
   close(newSocket);

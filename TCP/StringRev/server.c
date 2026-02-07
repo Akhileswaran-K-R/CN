@@ -50,7 +50,7 @@ void main(){
     exit(-1);
   }
 
-  recv(newSocket,buffer,1024,0);
+  recv(newSocket,buffer,sizeof(buffer),0);
   printf("\nData recieved: %s\n",buffer);
   reverse(buffer);
   send(newSocket,buffer,strlen(buffer)+1,0);
