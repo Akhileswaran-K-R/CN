@@ -46,10 +46,6 @@ void main(){
   int buffer[1024];
 
   int sockfd = socket(AF_INET,SOCK_DGRAM,0);
-  if(sockfd == -1){
-    printf("\nError creating socket\n");
-    exit(-1);
-  }
   printf("Client socket created successfully\n");
 
   serverAddr.sin_family = AF_INET;

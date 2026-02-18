@@ -21,34 +21,20 @@ void main(){
   char buffer[1024];
   
   int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-  if(serverSocket == -1){
-    printf("\nError creating server socket\n");
-    exit(-1);
-  }
   printf("Server socket created successfully\n");
 
   serverAddr.sin_family = AF_INET;
   serverAddr.sin_port = htons(4444);
   serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-  if(bind(serverSocket,(struct sockaddr*)&serverAddr,sizeof(serverAddr)) == -1){
-    printf("\nError binding socket\n");
-    exit(-1);
-  }
+  bind(serverSocket,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
   printf("Bind to port number %d\n",ntohs(serverAddr.sin_port));
 
-  if(listen(serverSocket,6) == -1){
-    printf("\nError on activating socket\n");
-    exit(-1);
-  }
+  listen(serverSocket,6);
   printf("Listening...\n");
 
   int addrSize = sizeof(clientAddr);
   int newSocket = accept(serverSocket,(struct sockaddr*)&clientAddr,&addrSize);
-  if(newSocket == -1){
-    printf("\nError accepting client\n");
-    exit(-1);
-  }
 
   recv(newSocket,buffer,sizeof(buffer),0);
   printf("\nData recieved: %s\n",buffer);
