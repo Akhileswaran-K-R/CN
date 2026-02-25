@@ -16,11 +16,11 @@ void main(){
 
     if(in <= bsize - bucket){
       bucket += in;
-      printf("Bucket status: %d out of %d\n",bucket,bsize);
     }else{
       printf("Dropped packets: %d\n",in - (bsize - bucket));
       bucket = bsize;
     }
+    printf("Bucket status: %d out of %d\n",bucket,bsize);
 
     if(bucket > out){
       bucket -= out;
