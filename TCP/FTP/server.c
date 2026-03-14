@@ -27,7 +27,7 @@ void main(){
   int addrSize = sizeof(clientAddr);
   while(1){
     int newSocket = accept(serverSocket,(struct sockaddr*)&clientAddr,&addrSize);
-    int pid = fork();
+    pid_t pid = fork();
 
     if(pid < 0){
       printf("\nFork error\n");
@@ -37,7 +37,7 @@ void main(){
       FILE *fp = fopen(buffer,"r");
 
       if(fp){
-        sprintf(buffer,"Server PID: %d\n\nFile Content:\n",getpid());
+        sprintf(buffer,"Server PID: %d\nFile Content:\n",getpid());
         send(newSocket,buffer,strlen(buffer)+1,0);
 
         while(fgets(buffer,sizeof(buffer),fp) != NULL){
@@ -53,7 +53,7 @@ void main(){
       close(newSocket);
       exit(0);
     }else{
-      printf("Client requesting for file\n");
+      printf("Client Connected\n");
       close(newSocket);
     }
   }
