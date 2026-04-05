@@ -6,7 +6,7 @@
 #include<string.h>
 #define MAX 20
 
-typedef struct {
+typedef struct{
   int sockfd;
   char name[MAX];
 }client_t;
