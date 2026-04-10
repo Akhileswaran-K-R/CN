@@ -1,11 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <sys/time.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+#include<unistd.h>
+#include<sys/time.h>
 
 void main(){
   struct sockaddr_in serverAddr;
@@ -74,26 +75,14 @@ void main(){
             base++;
           }
         }else if(c == 3){
-          if(ack >= 0 && ack < total){
-            acked[ack] = 1;
-            while(base < total && acked[base]){
-              base++;
-            }
+          acked[ack] = 1;
+          while(base < total && acked[base]){
+            base++;
           }
         }
       }else{
         printf("\n\nTimeout at packet %d! Resending...",base);
-        
-        if(c == 1 || c == 2){
-          next = base; 
-        }else if(c == 3){
-          for(int i=base;i < base + window && i < total;i++){
-            if(!acked[i]){
-              printf("\nResending missing packet %d",i);
-              sendto(sockfd,&i,sizeof(i),0,(struct sockaddr*)&serverAddr,sizeof(serverAddr));
-            }
-          }
-        }
+        next = base;
       }
     }
   }
